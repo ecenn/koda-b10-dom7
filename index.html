@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Characters</title>
+    <style>
+        #root > div {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            
+            div {
+                flex-direction: column;
+                justify-content: center;
+
+                p {
+                    margin: 0;
+                    text-align: center;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="Enter a keyword">
+    <button>Search</button>
+    
+    <div id="root"></div>
+    
+    <script>
+        const root = document.querySelector("#root")
+        const listChar = document.createElement("div")
+        function renderList() {}
+
+        fetch("https://rickandmortyapi.com/api/character")
+        .then((res)=>res.json())
+        .then((response)=>response.results)
+        .then((result)=>{
+            result.forEach(element => {
+                let char = document.createElement("div")
+                let name = document.createElement("p")
+                name.textContent = element.name
+                let img = document.createElement("img")
+                img.setAttribute("src", element.image)
+                char.append(name)
+                char.prepend(img)
+                listChar.append(char)
+            });
+        })
+        
+        root.append(listChar)
+        
+    </script>
+</body>
+</html>
